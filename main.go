@@ -34,7 +34,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:   "listenPort, lp",
-			Value:  "30000",
+			Value:  "12500",
 			Usage:  "Port on which prometheus will expose metrics",
 			EnvVar: "LISTEN_PORT",
 		},
@@ -75,9 +75,9 @@ func statsHandler(w http.ResponseWriter, r *http.Request) {
 		Help: "Returns how long the scrape to nsqd-stats took to complete in seconds",
 	})
 	params := r.URL.Query()
-	instance := params.Get("instance")
+	instance := params.Get("target")
 	if instance == "" {
-		http.Error(w, "Instance parameter is missing", http.StatusBadRequest)
+		http.Error(w, "Instance target parameter is missing", http.StatusBadRequest)
 		return
 	}
 
